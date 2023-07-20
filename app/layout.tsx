@@ -27,7 +27,7 @@ export default function RootLayout({
           <Navbar />
           <ModalProvider />
           <ToastProvider />
-          <div className="relative w-full min-h-screen h-auto mb-20 mt-20 flex flex-col justify-center">
+          <div className="relative w-full min-h-[80vh] h-auto mb-20 mt-20 flex flex-col justify-center">
             {children}
           </div>
           <Footer />
