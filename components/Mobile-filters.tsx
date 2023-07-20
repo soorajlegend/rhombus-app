@@ -4,14 +4,13 @@ import { useState } from "react";
 import { Plus, X } from 'lucide-react'
 import { Dialog } from "@headlessui/react"
 
-import { Color, Size } from "@/types"
 import Button from "./ui/button";
 import IconButton from "./ui/icon-button";
 import Filter from "@/app/(routes)/category/[categoryId]/components/filter";
 
 interface MobileFilterProps {
-    sizes: Size[];
-    colors: Color[]
+    sizes: any[];
+    colors: any[]
 }
 
 const MobileFilters: React.FC<MobileFilterProps> = ({ sizes, colors }) => {
