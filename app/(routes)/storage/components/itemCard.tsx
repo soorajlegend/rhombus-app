@@ -36,7 +36,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
 
 
     return (
-        <div className="relative bg-white shadow-xl lg:max-h-96 flex gap-x-10 group cursor-pointer rounded-xl border border-slate-100 p-3 max-w-4xl">
+        <div className="relative bg-white shadow-xl lg:max-h-96 flex flex-col lg:flex-row gap-x-10 group cursor-pointer rounded-xl border border-slate-100 p-3 max-w-4xl">
 
             {/* description */}
             <div className="w-full max-w-xs lg:max-w-none lg:w-72 ">
