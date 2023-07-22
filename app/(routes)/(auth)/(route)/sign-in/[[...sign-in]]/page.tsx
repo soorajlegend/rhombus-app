@@ -5,7 +5,6 @@ export default function Page() {
     appearance={{
       elements: {
         formButtonPrimary: 'hover:opacity-70 transition-color text-slate-100 text-sm normal-case',
-        footer: "hidden"
       },
       variables: {
         colorPrimary: "#338f6b",
