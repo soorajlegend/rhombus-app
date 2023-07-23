@@ -34,8 +34,6 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
         // previewModal.onOpen(data)
     }
 
-    console.log(data.parameters)
-
     return (
         <div className="relative bg-white shadow-xl lg:max-h-96 flex flex-col lg:flex-row gap-x-10 group cursor-pointer rounded-xl border border-slate-100 p-3 max-w-4xl">
 
@@ -58,7 +56,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
                 </div>
                 <div className="flex items-center justify-between">
                     <div className="text-base text-gray-500 flex flex-wrap items-center gap-x-2">
-                        <span>Parameters:</span> {data?.parameters?.map((each) => <Button className="bg-slate-200 text-slate-800 text-sm" key={each.id}>{each.name}</Button>) || "No parameters"}
+                        <span>Parameters:</span> {data?.parameters?.map((each) => <Button className="bg-neutral-100 text-slate-500 text-sm" key={each.id}>{each.name}</Button>) || "No parameters"}
                     </div>
                 </div>
                 <Separator />
@@ -69,8 +67,8 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
                 </div>
                 <Separator />
                 <div className="flex gap-x-3">
-                    <Button className="w-full">{data.forSale ? "Remove from Market" : "Put to market"}</Button>
-                    <Button className="w-full">Send</Button>
+                    <Button>{data.forSale ? "Remove from Market" : "Put to market"}</Button>
+                    <Button>Send</Button>
                 </div>
             </div>
         </div>
