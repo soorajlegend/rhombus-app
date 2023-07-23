@@ -1,7 +1,7 @@
 "use client"
 import { StoreItem } from '@/types'
 import React from 'react'
-import ItemCard from './itemCard'
+import ItemCard from './item-card'
 
 interface ItemsListProps {
     data: StoreItem[]

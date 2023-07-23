@@ -34,6 +34,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
         // previewModal.onOpen(data)
     }
 
+    console.log(data.parameters)
 
     return (
         <div className="relative bg-white shadow-xl lg:max-h-96 flex flex-col lg:flex-row gap-x-10 group cursor-pointer rounded-xl border border-slate-100 p-3 max-w-4xl">
@@ -47,28 +48,28 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
                     {data?.item.product.name}
                 </p>
                 <Separator />
-                <p className="text-lg text-gray-700">
+                <p className="text-base text-gray-700">
                     Weight: {data?.weight} kg
                 </p>
                 <div className="flex items-center justify-between">
-                    <p className="text-lg text-gray-500">
+                    <p className="text-base text-gray-500">
                         Status: {data?.forSale ? "For sale" : "Not for sale"}
                     </p>
                 </div>
                 <div className="flex items-center justify-between">
-                    <div className="text-lg text-gray-500 flex flex-wrap items-center gap-x-2">
+                    <div className="text-base text-gray-500 flex flex-wrap items-center gap-x-2">
                         <span>Parameters:</span> {data?.parameters?.map((each) => <Button className="bg-slate-200 text-slate-800 text-sm" key={each.id}>{each.name}</Button>) || "No parameters"}
                     </div>
                 </div>
                 <Separator />
                 <div className="flex items-center justify-between">
-                    <p className="text-lg text-gray-700">
+                    <p className="text-base text-gray-700">
                         Location: {data.item.store.city}, {data.item.store.country}
                     </p>
                 </div>
                 <Separator />
                 <div className="flex gap-x-3">
-                    <Button className="w-full">Sell</Button>
+                    <Button className="w-full">{data.forSale ? "Remove from Market" : "Put to market"}</Button>
                     <Button className="w-full">Send</Button>
                 </div>
             </div>
