@@ -1,6 +1,8 @@
 "use client"
 
 import PreviewModal from "@/components/preview-modal"
+import SendProductModal from "@/components/send-product-modal";
+import WithdrawProductModal from "@/components/withdraw-product-modal";
 import { useEffect, useState } from "react"
 
 
@@ -18,6 +20,8 @@ const ModalProvider = () => {
     return (
         <>
             <PreviewModal />
+            <SendProductModal />
+            <WithdrawProductModal />
         </>
     )
 }

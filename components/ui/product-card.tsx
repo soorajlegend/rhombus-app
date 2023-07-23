@@ -28,7 +28,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
 
     const showPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation();
-
         previewModal.onOpen(data)
     }
 

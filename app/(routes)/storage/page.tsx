@@ -1,11 +1,11 @@
-import getStoreData from '@/actions/get-storage-items'
-import Container from '@/components/ui/container';
-import { Separator } from '@/components/ui/separator';
 import { auth } from '@clerk/nextjs';
 
-import React from 'react'
+import getStoreData from '@/actions/get-storage-items'
+
+import Container from '@/components/ui/container';
+import { Separator } from '@/components/ui/separator';
 import ItemsList from './components/items-list';
-import Button from '@/components/ui/button';
+import Header from './components/header';
 
 const page = async () => {
 
@@ -17,14 +17,12 @@ const page = async () => {
 
     const data = await getStoreData(userId);
 
+ 
     return (
         <div>
             <Container>
                 <div className="w-full h-full flex flex-col space-y-3">
-                    <div className="flex justify-between space-x-3">
-                        <h4 className='font-bold text-2xl'>Saved Product ({data.storage.length})</h4>
-                        <Button>Withdraw</Button>
-                    </div>
+                    <Header amount={data.storage.length} />
                     <Separator />
                     <ItemsList data={data.storage} />
                 </div>

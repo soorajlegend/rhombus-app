@@ -1,17 +1,12 @@
 "use client"
 
-import Image from "next/image"
-import { Expand, ShoppingCart } from "lucide-react"
-import { useRouter } from "next/navigation"
 import { MouseEventHandler } from "react"
 
 import { StoreItem } from "@/types"
-import IconButton from "@/components/ui/icon-button"
-import usePreviewModal from "@/hooks/use-preview-modal"
-import useCart from "@/hooks/use-cart"
 import Gallery from "@/components/gallery"
 import { Separator } from "@/components/ui/separator"
 import Button from "@/components/ui/button"
+import useSendProduct from "@/hooks/use-send-product-modal"
 
 interface ItemCardProps {
     data: StoreItem
@@ -19,23 +14,16 @@ interface ItemCardProps {
 
 const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
 
-    const previewModal = usePreviewModal();
-    const cart = useCart();
-    const router = useRouter();
+    const sendModal = useSendProduct();
 
-    const handleClick = () => {
-        // router.push(`/product/${data.id}`)
-    }
-
-
-    const showPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
-        // event.stopPropagation();
-
-        // previewModal.onOpen(data)
+  
+    const showSendModal: MouseEventHandler<HTMLButtonElement> = (event) => {
+        event.stopPropagation();
+        sendModal.onOpen(data)
     }
 
     return (
-        <div className="relative bg-white shadow-xl lg:max-h-96 flex flex-col lg:flex-row gap-x-10 group cursor-pointer rounded-xl border border-slate-100 p-3 max-w-4xl">
+        <div className="relative bg-white lg:shadow-xl lg:max-h-96 flex flex-col lg:flex-row gap-x-10 group cursor-pointer rounded-xl border border-slate-100 p-3 max-w-4xl">
 
             {/* description */}
             <div className="w-full max-w-xs lg:max-w-none lg:w-72 ">
@@ -56,7 +44,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
                 </div>
                 <div className="flex items-center justify-between">
                     <div className="text-base text-gray-500 flex flex-wrap items-center gap-x-2">
-                        <span>Parameters:</span> {data?.parameters?.map((each) => <Button className="bg-neutral-100 text-slate-500 text-sm" key={each.id}>{each.name}</Button>) || "No parameters"}
+                        <span>Parameters:</span>{data?.parameters.length === 0 && "No parameters"} {data?.parameters?.map((each) => <Button className="bg-neutral-100 text-slate-500 text-sm" key={each.id}>{each.name}</Button>)}
                     </div>
                 </div>
                 <Separator />
@@ -67,8 +55,8 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
                 </div>
                 <Separator />
                 <div className="flex gap-x-3">
-                    <Button>{data.forSale ? "Remove from Market" : "Put to market"}</Button>
-                    <Button>Send</Button>
+                    <Button>{data.forSale ? "Remove from market" : "Put to market"}</Button>
+                    <Button onClick={showSendModal}>Send</Button>
                 </div>
             </div>
         </div>
