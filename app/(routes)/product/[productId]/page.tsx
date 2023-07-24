@@ -15,10 +15,10 @@ export const revalidate = 0;
 
 const PropductPage: React.FC<ProductPageProps> = async ({ params }) => {
 
-    const StoreProduct = await getProduct(params.productId);
+    const storeProduct = await getProduct(params.productId);
 
     const suggestedProducts = await getProducts({
-        categoryId: StoreProduct?.product?.category?.id
+        categoryId: storeProduct?.item.product.category.id
     })
 
     return (
@@ -28,10 +28,10 @@ const PropductPage: React.FC<ProductPageProps> = async ({ params }) => {
                     <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
                         {/* Gallery */}
                         <div className="">
-                            <Gallery images={StoreProduct.product.images} />
+                            <Gallery images={storeProduct.item.product.images} />
                         </div>
                         <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
-                           <Info data={StoreProduct} />
+                           <Info data={storeProduct} />
                         </div>
                     </div>
                     <hr className='my-10' />
