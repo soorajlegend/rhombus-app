@@ -1,10 +1,10 @@
-import { StoreProduct } from "@/types"
+import { StoreItem } from "@/types"
 import NoResults from "@/components/ui/no-result"
 import ProductCard from "@/components/ui/product-card"
 
 interface ProductListProps {
     title: string
-    items: StoreProduct[]
+    items: StoreItem[]
 }
 
 const ProductList: React.FC<ProductListProps> = ({ title, items }) => {

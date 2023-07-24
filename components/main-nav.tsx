@@ -8,7 +8,7 @@ import { Category } from '@/types';
 
 interface MainNavProps {
     data: Category[];
-    loggedIn: string | null;
+    loggedIn: boolean;
 }
 
 const MainNav: React.FC<MainNavProps> = ({ data, loggedIn }) => {

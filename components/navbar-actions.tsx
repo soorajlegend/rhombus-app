@@ -12,7 +12,7 @@ import { cn } from "@/app/lib/utils"
 
 
 interface NavbarActionsProps {
-    loggedIn: string | null
+    loggedIn: boolean
 }
 
 const NavbarActions: React.FC<NavbarActionsProps> = ({ loggedIn }) => {

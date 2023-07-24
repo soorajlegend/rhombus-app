@@ -7,6 +7,7 @@ import Gallery from "@/components/gallery"
 import { Separator } from "@/components/ui/separator"
 import Button from "@/components/ui/button"
 import useSendProduct from "@/hooks/use-send-product-modal"
+import Parameters from "@/components/ui/parameters"
 
 interface ItemCardProps {
     data: StoreItem
@@ -44,7 +45,8 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
                 </div>
                 <div className="flex items-center justify-between">
                     <div className="text-base text-gray-500 flex flex-wrap items-center gap-x-2">
-                        <span>Parameters:</span>{data?.parameters.length === 0 && "No parameters"} {data?.parameters?.map((each) => <Button className="bg-neutral-100 py-[0.30rem] text-slate-500 text-sm lowercase" key={each.id}>{each.name}</Button>)}
+                        <span>Parameters:</span>
+                        <Parameters data={data?.parameters} />
                     </div>
                 </div>
                 <Separator />
