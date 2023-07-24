@@ -15,23 +15,23 @@ const Summary = () => {
 
     const searchParams = useSearchParams();
 
-    const totalPrice = items.reduce((total, item) => total + Number(item.price), 0)
+    const totalPrice = items.reduce((total, each) => total + (Number(each.item.price) * each.weight), 0)
 
     useEffect(() => {
 
-            if(searchParams.get('success')){
-                toast.success("Payment completed");
-                removeAll();
-            }
+        if (searchParams.get('success')) {
+            toast.success("Payment completed");
+            removeAll();
+        }
 
-            if(searchParams.get('canceled')){
-                toast.error("Something went wrong!")
-            }
+        if (searchParams.get('canceled')) {
+            toast.error("Something went wrong!")
+        }
     }, [searchParams, removeAll])
-    
+
 
     const onCheckout = async () => {
-        if(items.length === 0) {
+        if (items.length === 0) {
             toast("Your cart is empty")
             return;
         }
@@ -54,9 +54,9 @@ const Summary = () => {
                 </div>
             </div>
             <Button
-            disabled={items.length === 0}
-            onClick={onCheckout
-            } className="w-full mt-6">
+                disabled={items.length === 0}
+                onClick={onCheckout
+                } className="w-full mt-6">
                 Checkout
             </Button>
         </div>
