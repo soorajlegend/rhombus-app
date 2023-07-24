@@ -5,14 +5,16 @@ import { Expand, ShoppingCart } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { MouseEventHandler } from "react"
 
-import { StoreProduct } from "@/types"
+import { Store, StoreItem } from "@/types"
 import Currency from "./currency"
 import IconButton from "@/components/ui/icon-button"
 import usePreviewModal from "@/hooks/use-preview-modal"
 import useCart from "@/hooks/use-cart"
+import Parameters from "./parameters"
+import { Separator } from "./separator"
 
 interface ProductCardProps {
-    data: StoreProduct
+    data: StoreItem
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
@@ -41,9 +43,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
         <div className="bg-white group cursor-pointer rounded-xl border border-slate-100 shadow-lg p-3 space-y-4">
             <div onClick={handleClick} className="aspect-square rounded-xl bg-gray-100 relative">
                 <Image
-                    src={data?.product.images?.[0]?.url}
+                    src={data.item?.product.images?.[0]?.url}
                     fill
-                    alt={`${data.product.name} image`}
+                    alt={`${data.item.product.name} image`}
                     className="aspect-square object-cover rounded-md"
                 />
                 <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5 ">
@@ -60,18 +62,21 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                 </div>
             </div>
             {/* description */}
-            <div className="">
+            <div className="flex flex-col space-y-2">
                 <p className="font-semibold text-lg">
-                    {data?.product.name}
+                    {data.item.product.name} ({data?.weight}kg)
                 </p>
                 <p className="text-sm text-gray-500">
-                    {data?.product.category?.name}
+                    {data.item.product.category?.name}
                 </p>
+                <Separator />
+                <Parameters data={data?.parameters} />
+                <Separator />
                 {/* price */}
                 <div className="flex items-center justify-between">
                     <Currency
-                        value={data.price}
-                        code={data?.store?.code || "USD"}
+                        value={data.item.price * data?.weight}
+                        code={data.item.store?.code}
                     />
                 </div>
             </div>

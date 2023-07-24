@@ -1,14 +1,14 @@
-import { StoreProduct } from "@/types";
+import { StoreItem } from "@/types";
 import qs from "query-string"
 
-const URL = `${process.env.NEXT_PUBLIC_API_URL}/storeProduct`;
+const URL = `${process.env.NEXT_PUBLIC_API_URL}/products`;
 
 interface Query {
     categoryId?: string;
     isFeatured?: boolean
 }
 
-const getProducts = async (query: Query): Promise<StoreProduct[]> => {
+const getProducts = async (query: Query): Promise<StoreItem[]> => {
     const url = qs.stringifyUrl({
         url: URL,
         query: {
