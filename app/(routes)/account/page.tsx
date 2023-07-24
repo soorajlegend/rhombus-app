@@ -1,16 +1,16 @@
 import Container from '@/components/ui/container'
 import React from 'react'
 
-const Dashboard = () => {
+const Account = () => {
 
 
   return (
     <Container>
       <div className="">
-        Dashboard Page codes here
+        Account Page codes here
       </div>
     </Container>
   )
 }
 
-export default Dashboard
+export default Account

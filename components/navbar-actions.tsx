@@ -1,14 +1,14 @@
 'use client'
 
+import { useEffect, useState } from "react"
 import { ShoppingBag } from "lucide-react"
+import { UserButton } from "@clerk/nextjs"
+import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
 
 import Button from "@/components/ui/button"
-import { useEffect, useState } from "react"
 import useCart from "@/hooks/use-cart"
-import { usePathname, useRouter } from "next/navigation"
-import { UserButton } from "@clerk/nextjs"
 import { cn } from "@/app/lib/utils"
-import Link from "next/link"
 
 
 interface NavbarActionsProps {
@@ -45,7 +45,7 @@ const NavbarActions: React.FC<NavbarActionsProps> = ({ loggedIn }) => {
             active: pathname === '/'
         },
         {
-            href: "/",
+            href: "/account",
             label: 'account',
             active: pathname === '/'
         },
