@@ -28,7 +28,7 @@ const Gallery: React.FC<GalleryProps> = ({ images }) => {
                                 fill
                                 src={image.url}
                                 alt="mini image"
-                                className="bg-red-500 object-cover object-center"
+                                className="object-cover object-center"
                             />
                         </div>
                     </Tab.Panel>

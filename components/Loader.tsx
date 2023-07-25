@@ -1,26 +1,23 @@
 "use client"
 
 import React from 'react'
+import { ClipLoader } from 'react-spinners';
+
 import Modal from './ui/modal';
-import useSendProduct from '@/hooks/use-send-product-modal';
+import useLoader from '@/hooks/use-loader';
 
 const Loader = () => {
 
-    const sendProduct = useSendProduct();
-    const storeProduct = useSendProduct((state) => state.data)
-
-    if (!storeProduct) {
-        return null
-    }
-
+    const Loader = useLoader();
 
     return (
         <Modal
-            isOpen={sendProduct.isOpen}
-            onClose={sendProduct.onClose}
+            loading
+            isOpen={Loader.isOpen}
+            onClose={Loader.onClose}
         >
-            <div className="w-full">
-            Hello, send product modal
+            <div className="w-full h-full flex items-center justify-center">
+                <ClipLoader size={50} color="#cccccc" />
             </div>
         </Modal>
     )

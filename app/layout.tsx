@@ -7,6 +7,7 @@ import ToastProvider from '@/providers/toast-provider'
 
 import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
+import LoaderProvider from '@/providers/loader-provider'
 
 const font = Urbanist({ subsets: ['latin'], weight: ["400", "700"] })
 
@@ -29,6 +30,7 @@ export default function RootLayout({
           <Navbar />
           <ModalProvider />
           <ToastProvider />
+          <LoaderProvider />
           <div className="relative w-full min-h-[80vh] h-auto mb-20 mt-20 flex flex-col justify-center">
             {children}
           </div>
