@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { ShoppingBag } from "lucide-react"
-import { UserButton } from "@clerk/nextjs"
+import { UserButton, auth } from "@clerk/nextjs"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 
@@ -11,13 +11,13 @@ import useCart from "@/hooks/use-cart"
 import { cn } from "@/app/lib/utils"
 
 
-interface NavbarActionsProps {
-    loggedIn: boolean
-}
 
-const NavbarActions: React.FC<NavbarActionsProps> = ({ loggedIn }) => {
+
+const NavbarActions: React.FC = () => {
 
     const [isMounted, setIsMounted] = useState(false);
+
+    const { userId } = auth();
     
     
     const router = useRouter();
@@ -78,7 +78,7 @@ const NavbarActions: React.FC<NavbarActionsProps> = ({ loggedIn }) => {
                 <span className="ml-2 text-sm font-medium text-white">{cart.items.length}</span>
             </Button>
             {
-                !loggedIn
+                !userId
                     ? (
                         <Button
                             onClick={() => router.push('/sign-in')}
