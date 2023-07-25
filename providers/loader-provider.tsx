@@ -4,7 +4,7 @@ import Loader from "@/components/Loader";
 import { useEffect, useState } from "react"
 
 
-const ModalProvider = () => {
+const LoaderProvider = () => {
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
@@ -22,4 +22,4 @@ const ModalProvider = () => {
     )
 }
 
-export default ModalProvider
+export default LoaderProvider

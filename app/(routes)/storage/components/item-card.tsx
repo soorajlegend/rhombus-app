@@ -8,9 +8,10 @@ import { Separator } from "@/components/ui/separator"
 import Button from "@/components/ui/button"
 import useSendProduct from "@/hooks/use-send-product-modal"
 import Parameters from "@/components/ui/parameters"
-import axios from "axios"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
+import useLoader from "@/hooks/use-loader"
+import changeStatus from "@/actions/change-status"
 
 interface ItemCardProps {
     data: StoreItem
@@ -20,24 +21,27 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
 
     const sendModal = useSendProduct();
     const router = useRouter();
+    const loader = useLoader();
 
-  
+
     const showSendModal: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation();
         sendModal.onOpen(data)
     }
 
-    const changeStatus = async () => {
+    const updateStatus = async () => {
         try {
-            // setLoading(true);
-            const toastMessage = data.forSale ?  "Item removed from market" : "Item added to market"
-            await axios.patch(`/api/${data.item.store.id}/storeItems/${data.id}/status`, { status: !data?.forSale});
-            router.refresh();
-            toast.success(toastMessage);
+            loader.onOpen();
+            const toastMessage = data.forSale ? "Item removed from market" : "Item added to market"
+            const update = await changeStatus(data.item.store.id, data.id, !data.forSale);
+            if (update) {
+                router.refresh();
+                toast.success(toastMessage);
+            }
         } catch (e) {
             toast.error('Something went wrong!')
         } finally {
-            // setLoading(false)
+            loader.onClose()
         }
     }
 
@@ -50,7 +54,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
             </div>
             <div className="flex flex-col space-y-4 ">
                 <p className="font-bold text-2xl">
-                    {data?.item.product.name} {data.id}
+                    {data?.item.product.name}
                 </p>
                 <Separator />
                 <p className="text-base text-gray-700">
@@ -75,7 +79,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
                 </div>
                 <Separator />
                 <div className="flex gap-x-3">
-                    <Button onClick={changeStatus}>{data.forSale ? "Remove from market" : "Put to market"}</Button>
+                    <Button onClick={updateStatus}>{data.forSale ? "Remove from market" : "Put to market"}</Button>
                     <Button onClick={showSendModal}>Send</Button>
                 </div>
             </div>
