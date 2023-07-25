@@ -6,9 +6,9 @@ import ModalProvider from '@/providers/modal-provider'
 import ToastProvider from '@/providers/toast-provider'
 
 import './globals.css'
-import { ClerkProvider, auth } from '@clerk/nextjs'
+import { ClerkProvider } from '@clerk/nextjs'
 
-const font = Urbanist({ subsets: ['latin'], weight: ["400"] })
+const font = Urbanist({ subsets: ['latin'], weight: ["400", "700"] })
 
 export const metadata = {
   title: 'Rhombus',
@@ -21,13 +21,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
-  const { userId } = auth();
 
   return (
     <html lang='en'>
       <ClerkProvider>
         <body className={font.className}>
-          <Navbar loggedIn={!!userId} />
+          <Navbar />
           <ModalProvider />
           <ToastProvider />
           <div className="relative w-full min-h-[80vh] h-auto mb-20 mt-20 flex flex-col justify-center">
