@@ -16,12 +16,13 @@ import { cn } from "@/app/lib/utils"
 const NavbarActions: React.FC = () => {
 
     const [isMounted, setIsMounted] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false);
+    // const [loggedIn, setLoggedIn] = useState(false);
+    const { isLoaded, userId } = useAuth();
+    const loggedIn = isLoaded && !!userId
 
-    useEffect(() => {
-        const { isLoaded, userId } = useAuth();
-        setLoggedIn(isLoaded && !!userId)
-    }, [])
+    // useEffect(() => {
+    //     setLoggedIn(isLoaded && !!userId)
+    // }, [])
 
 
     const router = useRouter();
