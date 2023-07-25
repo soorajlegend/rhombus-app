@@ -1,11 +1,6 @@
 "use client"
 import { useRouter } from "next/navigation";
 
-interface UserProfileFormProps {
-    meetRequirement: boolean;
-
-}
-
 const UserProfileForm = () => {
     const router = useRouter();
 
@@ -28,7 +23,7 @@ const UserProfileForm = () => {
     // };
     return (
         <div>
-            This is registration form
+            Please Wait...
         </div>
     )
 }
