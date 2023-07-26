@@ -1,11 +1,12 @@
 import Container from '@/components/ui/container';
 import React from 'react';
-import Link from 'next/link';
 import { getGraphData } from '@/actions/get-items-graph';
 import getStoreData from '@/actions/get-storage-items';
 import { auth } from '@clerk/nextjs';
 import { Overview } from './components/overview';
 import Card from './components/card';
+import BarChart from './components/BarChart'
+import { aggregateWeights } from '@/lib/utils';
 
 
 
@@ -15,10 +16,12 @@ const Dashboard = async () => {
 
   const user = await getStoreData(userId!)
 
-  const formattedStorageData = user.storage?.map((each) => ({
+  const formattedStorageData = aggregateWeights(user.storage?.map((each) => ({
     name: each.item.product.name,
     weight: each.weight,
-  }))
+  })))
+
+  console.log(formattedStorageData)
 
   const graphData = await getGraphData(formattedStorageData)
 
@@ -186,8 +189,7 @@ const Dashboard = async () => {
             </div>
           </div>
           <div className=" mt-4 flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
-            {/* <BarChart /> */}
-            <Overview data={graphData} />
+            <BarChart data={graphData} />
           </div>
           <div id="history" className="flex flex-col mt-8">
             <h3 className="text-gray-700 text-xl my-2 font-medium">History</h3>

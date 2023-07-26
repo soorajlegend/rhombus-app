@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-// import { Bar } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -21,7 +21,7 @@ ChartJS.register(
 	Legend
 );
 
-const BarChart = () => {
+const BarChart = ({data}) => {
 	const [chartData, setChartData] = useState({
 		datasets: [],
 	});
@@ -30,21 +30,13 @@ const BarChart = () => {
 
 	useEffect(() => {
 		setChartData({
-			labels: [
-				'Dakata',
-				'Kano',
-				'Nassarawa',
-				'Abuja',
-				'Lagos',
-				'Sharada',
-				'Dawanau',
-			],
+			labels: data?.map((each) => each.name),
 			datasets: [
 				{
 					label: 'Products (Kg)',
-					data: [18127, 22201, 19490, 17938, 24182, 17842, 22475],
-					borderColor: 'rgb(53, 162, 235)',
-					backgroundColor: 'rgb(53, 162, 235, 0.4',
+					data: data?.map((each) => each.weight),
+					borderColor: '#338f6b',
+					backgroundColor: 'rgb(53, 205, 53, 0.4',
 				},
 			],
 		});
@@ -66,7 +58,7 @@ const BarChart = () => {
 	return (
 		<>
 			<div className="w-full md:col-span-2 relative h-[50vh] m-auto p-4 border rounded-lg bg-white">
-				{/* <Bar data={chartData} options={chartOptions} /> */}
+				<Bar data={chartData} options={chartOptions} />
 			</div>
 		</>
 	);
