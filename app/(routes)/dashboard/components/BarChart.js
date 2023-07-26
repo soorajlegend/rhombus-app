@@ -1,7 +1,7 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
-import { mockBarData } from './data';
-import { Bar } from 'react-chartjs-2';
+// import { Bar } from 'react-chartjs-2';
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -66,7 +66,7 @@ const BarChart = () => {
 	return (
 		<>
 			<div className="w-full md:col-span-2 relative h-[50vh] m-auto p-4 border rounded-lg bg-white">
-				<Bar data={chartData} options={chartOptions} />
+				{/* <Bar data={chartData} options={chartOptions} /> */}
 			</div>
 		</>
 	);
