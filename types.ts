@@ -34,7 +34,7 @@ export interface User {
   code?: string;
   symbol?: string;
   pin?: string;
-  balance: 0;
+  balance: number;
   storage: StoreItem[]
   createdAt: Date;
   updatedAt: Date;
