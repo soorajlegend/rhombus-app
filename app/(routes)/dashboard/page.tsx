@@ -21,8 +21,6 @@ const Dashboard = async () => {
     weight: each.weight,
   })))
 
-  console.log(formattedStorageData)
-
   const graphData = await getGraphData(formattedStorageData)
 
   const dashboardCards = [
