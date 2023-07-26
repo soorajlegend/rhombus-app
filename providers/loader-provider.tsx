@@ -1,6 +1,6 @@
 "use client"
 
-import Loader from "@/components/Loader";
+import Loader from "@/components/loader";
 import { useEffect, useState } from "react"
 
 

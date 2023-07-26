@@ -38,28 +38,11 @@ const NavbarActions: React.FC = () => {
         return null
     }
 
-    const routes = [
-        {
-            href: "/storage",
-            label: 'My storage',
-            active: pathname === '/storage'
-        },
-        {
-            href: "/",
-            label: 'Market',
-            active: pathname === '/'
-        },
-        {
-            href: "/account",
-            label: 'account',
-            active: pathname === '/'
-        },
-    ]
 
 
     return (
         <div className="ml-auto flex items-center gap-x-4">
-            <div className="mx-6 flex items-center space-x-4 lg:space-x-6">
+            {/* <div className="mx-6 flex items-center space-x-4 lg:space-x-6">
                 {
                     routes.map((route) => (
                         <Link
@@ -73,7 +56,7 @@ const NavbarActions: React.FC = () => {
                         </Link>
                     ))
                 }
-            </div>
+            </div> */}
 
             <Button onClick={() => router.push('/cart')} className="flex items-center rounded-full bg-emerald-800 px-4 py-2">
                 <ShoppingBag
