@@ -1,6 +1,6 @@
 "use client"
 
-import Loader from "@/components/loader";
+import Loader from "@/components/spinner";
 import { useEffect, useState } from "react"
 
 
