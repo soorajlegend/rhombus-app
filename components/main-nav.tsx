@@ -4,21 +4,34 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation'
 
 import { cn } from '@/app/lib/utils';
-import { Category } from '@/types';
 
-interface MainNavProps {
-    data: Category[];
-}
 
-const MainNav: React.FC<MainNavProps> = ({ data }) => {
+
+const MainNav = () => {
     const pathname = usePathname();
 
-    const routes = data.map((route) => ({
-        href: `/category/${route.id}`,
-        label: route.name,
-        active: pathname === `/category/${route.id}`
-    }));
-
+    const routes = [
+        {
+            href: "/dashboard",
+            label: 'Dashboard',
+            active: pathname === '/dashboard'
+        },
+        {
+            href: "/storage",
+            label: 'My storage',
+            active: pathname === '/storage'
+        },
+        {
+            href: "/",
+            label: 'Market',
+            active: pathname === '/'
+        },
+        {
+            href: "/account",
+            label: 'account',
+            active: pathname === '/'
+        },
+    ]
 
     return (
         <nav className='mx-6 flex items-center space-x-4 lg:space-x-6'>
