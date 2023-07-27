@@ -80,3 +80,6 @@ html, body, :root {
     @apply bg-background text-foreground;
   }
 }
+.debug{
+  border: 1px red solid;
+}
