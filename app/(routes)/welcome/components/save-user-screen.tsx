@@ -1,6 +1,7 @@
 "use client"
 
 import saveUser from "@/actions/save-user-details";
+import useRegistered from "@/hooks/use-registered";
 import { User } from "@/types";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -18,6 +19,11 @@ interface SaveUserScreenProps {
 
 const SaveUserScreen: React.FC<SaveUserScreenProps> = ({ user }) => {
     const router = useRouter();
+    const registered = useRegistered()
+
+    if (registered.isRegistered) {
+        router.push('/dashboard')
+    }
 
     useEffect(() => {
         const saveData = async () => {
@@ -30,6 +36,7 @@ const SaveUserScreen: React.FC<SaveUserScreenProps> = ({ user }) => {
             )
 
             if (save) {
+                registered.onSet();
                 router.push("/dashboard");
             }
         };
