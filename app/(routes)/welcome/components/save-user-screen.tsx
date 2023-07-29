@@ -21,9 +21,9 @@ const SaveUserScreen: React.FC<SaveUserScreenProps> = ({ user }) => {
     const router = useRouter();
     const registered = useRegistered()
 
-    // if (registered.isRegistered) {
-    //     router.push('/dashboard')
-    // }
+    if (registered.isRegistered) {
+        router.push('/dashboard')
+    }
 
     useEffect(() => {
         const saveData = async () => {
@@ -37,7 +37,7 @@ const SaveUserScreen: React.FC<SaveUserScreenProps> = ({ user }) => {
 
             if (save) {
                 registered.onSet();
-                // router.push("/dashboard");
+                router.push("/dashboard");
             }
         };
         saveData();
