@@ -18,9 +18,9 @@ const Dashboard: React.FC<DashboardProps> = ({ user, graphData }) => {
 
     const userData = useUserData();
 
-    // useEffect(() => {
-    //     userData.saveUserData(user)
-    // }, [userData, user])
+    useEffect(() => {
+        userData.saveUserData(user)
+    }, [userData, user])
 
     const dashboardCards = [
         {
