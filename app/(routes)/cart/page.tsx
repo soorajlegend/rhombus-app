@@ -5,7 +5,6 @@ import useCart from "@/hooks/use-cart"
 import { useEffect, useState } from "react"
 import CartItem from "./components/cart-item"
 import Summary from "./components/summary"
-import useUserData from "@/hooks/use-user-data"
 
 const CartPage = () => {
     const [isMounted, setIsMounted] = useState(false)

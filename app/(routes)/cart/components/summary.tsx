@@ -15,6 +15,7 @@ const Summary = () => {
     const removeAll = useCart((state) => state.removeAll)
     const searchParams = useSearchParams();
     const userData = useUserData();
+    const mobile = userData.data?.phoneNumber;
 
     const totalPrice = items.reduce((total, each) => total + (Number(each.item.price) * each.weight), 0)
 
@@ -39,7 +40,7 @@ const Summary = () => {
         }
         const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkouts`, {
             itemIds: items.map((item) => item.id),
-            buyerMobile: encodeURIComponent(userData.data?.phoneNumber!)
+            buyerMobile: encodeURIComponent(mobile || "0")
         })
 
         window.location = response.data.url;
