@@ -2,19 +2,17 @@ import Container from '@/components/ui/container';
 import React from 'react';
 import { getGraphData } from '@/actions/get-items-graph';
 import getUserData from '@/actions/get-user-data';
-import { auth} from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs';
 import Card from '../../../components/ui/card';
 import BarChart from './components/BarChart';
 import { aggregateWeights } from '@/lib/utils';
-import useUserData from '@/hooks/use-user-data';
+import SaveUser from './components/save-user';
 
 const Dashboard = async () => {
 	const { userId } = auth();
-	const userData = useUserData();
 
 	const user = await getUserData(userId!);
-	userData.save(user);
-	
+
 	const formattedStorageData = aggregateWeights(
 		user.storage?.map((each) => ({
 			name: each.item.product.name,
@@ -153,6 +151,7 @@ const Dashboard = async () => {
 	return (
 		<Container>
 			<main className="flex-1 h-full overflow-x-hidden overflow-y-auto">
+				<SaveUser data={user} />
 				<div className="container mx-auto px-6 py-8">
 					<h3 className="text-gray-700 text-xl md:text-3xl font-medium">
 						Dashboard
