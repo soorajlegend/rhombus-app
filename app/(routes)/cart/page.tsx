@@ -16,7 +16,7 @@ const CartPage = () => {
     useEffect(() => {
         const getCurrentUser = async () => {
             const user = await currentUser();
-            setUserMobile(user?.phoneNumbers[0].phoneNumber || "")
+            setUserMobile(user?.phoneNumbers[0].phoneNumber || "1212")
         }
         getCurrentUser()
     }, [])
