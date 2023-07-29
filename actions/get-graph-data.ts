@@ -1,5 +1,5 @@
 
-interface GraphData {
+export interface GraphData {
   name: string;
   weight: number;
 }
