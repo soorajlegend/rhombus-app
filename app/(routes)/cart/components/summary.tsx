@@ -39,7 +39,10 @@ const Summary = () => {
             return;
         }
         const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkouts`, {
-            items: items.map((item) => item.id),
+            items: items.map((item) => ({
+                id: item.id,
+                amountPaid: Number(item.item.price) * Number(item.weight)
+            })),
             buyerMobile: encodeURIComponent(mobile || "0")
         })
 
