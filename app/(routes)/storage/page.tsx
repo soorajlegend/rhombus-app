@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs';
 
-import getStoreData from '@/actions/get-storage-items'
+import getStoreData from '@/actions/get-user-data'
 
 import Container from '@/components/ui/container';
 import { Separator } from '@/components/ui/separator';

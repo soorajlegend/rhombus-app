@@ -3,20 +3,18 @@
 import Button from "@/components/ui/button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
+import useUserData from "@/hooks/use-user-data";
 import axios from "axios";
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-interface SummaryProps {
-    mobile: string
-}
-
-const Summary: React.FC<SummaryProps> = ({ mobile }) => {
+const Summary = () => {
 
     const items = useCart((state) => state.items)
     const removeAll = useCart((state) => state.removeAll)
     const searchParams = useSearchParams();
+    const userData = useUserData();
 
     const totalPrice = items.reduce((total, each) => total + (Number(each.item.price) * each.weight), 0)
 
@@ -41,7 +39,7 @@ const Summary: React.FC<SummaryProps> = ({ mobile }) => {
         }
         const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkouts`, {
             itemIds: items.map((item) => item.id),
-            buyerMobile: encodeURIComponent(mobile)
+            buyerMobile: encodeURIComponent(userData.data?.phoneNumber!)
         })
 
         window.location = response.data.url;

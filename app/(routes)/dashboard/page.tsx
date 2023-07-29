@@ -1,17 +1,20 @@
 import Container from '@/components/ui/container';
 import React from 'react';
 import { getGraphData } from '@/actions/get-items-graph';
-import getStoreData from '@/actions/get-storage-items';
-import { auth } from '@clerk/nextjs';
+import getUserData from '@/actions/get-user-data';
+import { auth} from '@clerk/nextjs';
 import Card from '../../../components/ui/card';
 import BarChart from './components/BarChart';
 import { aggregateWeights } from '@/lib/utils';
+import useUserData from '@/hooks/use-user-data';
 
 const Dashboard = async () => {
 	const { userId } = auth();
+	const userData = useUserData();
 
-	const user = await getStoreData(userId!);
-
+	const user = await getUserData(userId!);
+	userData.save(user);
+	
 	const formattedStorageData = aggregateWeights(
 		user.storage?.map((each) => ({
 			name: each.item.product.name,
