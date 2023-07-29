@@ -6,8 +6,8 @@ import { GraphData } from '@/actions/get-graph-data';
 import Card from '@/components/ui/card';
 import BarChart from './BarChart';
 import { User } from '@/types';
-// import useUserData from '@/hooks/use-user-data';
-// import { useEffect } from 'react';
+import useUserData from '@/hooks/use-user-data';
+import { useEffect } from 'react';
 
 interface DashboardProps {
     user: User
@@ -16,7 +16,7 @@ interface DashboardProps {
 
 const Dashboard: React.FC<DashboardProps> = ({ user, graphData }) => {
 
-    // const userData = useUserData();
+    const userData = useUserData();
 
     // useEffect(() => {
     //     userData.saveUserData(user)
