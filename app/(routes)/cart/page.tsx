@@ -12,24 +12,20 @@ const CartPage = () => {
     const [userMobile, setUserMobile] = useState('');
     const cart = useCart();
 
+    const getCurrentUser = async () => {
+        const user = await currentUser();
+        console.log("first")
+        setUserMobile(user?.phoneNumbers[0].phoneNumber || "1212")
+    }
+    
     useEffect(() => {
+        getCurrentUser()
         setIsMounted(true);
     }, [])
 
     if (!isMounted) {
         return null
     }
-
-    const getCurrentUser = async () => {
-        const user = await currentUser();
-        console.log("first")
-        setUserMobile(user?.phoneNumbers[0].phoneNumber || "1212")
-    }
-
-    useEffect(() => {
-        getCurrentUser()
-    }, [])
-
 
     return (
         <div className="bg-white">
