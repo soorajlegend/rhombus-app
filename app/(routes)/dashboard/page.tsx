@@ -3,7 +3,6 @@ import React from 'react';
 import { getGraphData } from '@/actions/get-items-graph';
 import getStoreData from '@/actions/get-storage-items';
 import { auth } from '@clerk/nextjs';
-import { Overview } from './components/overview';
 import Card from '../../../components/ui/card';
 import BarChart from './components/BarChart';
 import { aggregateWeights } from '@/lib/utils';
