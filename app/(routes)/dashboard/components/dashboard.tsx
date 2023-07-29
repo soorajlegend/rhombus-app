@@ -5,10 +5,9 @@ import React from 'react';
 import { GraphData } from '@/actions/get-graph-data';
 import Card from '@/components/ui/card';
 import BarChart from './BarChart';
-import SaveUser from './save-user';
 import { User } from '@/types';
-import useUserData from '@/hooks/use-user-data';
-import { useEffect } from 'react';
+// import useUserData from '@/hooks/use-user-data';
+// import { useEffect } from 'react';
 
 interface DashboardProps {
     user: User
@@ -17,11 +16,11 @@ interface DashboardProps {
 
 const Dashboard: React.FC<DashboardProps> = ({ user, graphData }) => {
 
-    const userData = useUserData();
+    // const userData = useUserData();
 
-    useEffect(() => {
-        userData.save(user)
-    }, [userData, user])
+    // useEffect(() => {
+    //     userData.saveUserData(user)
+    // }, [userData, user])
 
     const dashboardCards = [
         {
@@ -152,7 +151,6 @@ const Dashboard: React.FC<DashboardProps> = ({ user, graphData }) => {
     return (
         <Container>
             <main className="flex-1 h-full overflow-x-hidden overflow-y-auto">
-                <SaveUser data={user} />
                 <div className="container mx-auto px-6 py-8">
                     <h3 className="text-gray-700 text-xl md:text-3xl font-medium">
                         Dashboard
