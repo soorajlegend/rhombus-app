@@ -37,7 +37,7 @@ const SaveUserScreen: React.FC<SaveUserScreenProps> = ({ user }) => {
 
             if (save) {
                 registered.onSet();
-                router.push("/dashboard");
+                // router.push("/dashboard");
             }
         };
         saveData();
