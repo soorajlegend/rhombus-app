@@ -8,6 +8,7 @@ import BarChart from './BarChart';
 import { User } from '@/types';
 import useUserData from '@/hooks/use-user-data';
 import { useEffect } from 'react';
+import { formatNumber } from '@/app/lib/utils';
 
 interface DashboardProps {
     user: User
@@ -42,7 +43,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, graphData }) => {
             ),
         },
         {
-            title: 'N8,282',
+            title: `${user.code} ${formatNumber(Number(user?.balance))}`,
             description: 'My Wallet',
             href: '/wallet',
             color: 'bg-blue-700',
