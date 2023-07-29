@@ -9,7 +9,6 @@ export default async function Welome() {
 
   const user = await currentUser();
 
-
   const meetRequirement = user?.firstName && user?.phoneNumbers[0].phoneNumber && user?.emailAddresses[0].emailAddress;
 
   return (
