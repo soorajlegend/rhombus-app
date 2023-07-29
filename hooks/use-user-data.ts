@@ -3,17 +3,17 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 import { User } from "@/types";
 
-interface UserData {
+interface UserState {
   data?: User;
-  save: (data: User) => void;
+  saveUserData: (userData: User) => void;
 }
 
 const useUserData = create(
-  persist<UserData>(
+  persist<UserState>(
     (set) => ({
       data: undefined,
-      save: (data: User) => {
-        set({ data });
+      saveUserData: (userData: User) => {
+        set({ data: userData });
       },
     }),
     {

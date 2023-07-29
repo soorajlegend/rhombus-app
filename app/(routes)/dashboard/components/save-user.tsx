@@ -11,7 +11,7 @@ const SaveUser: React.FC<SaveUserProps> = ({ data }) => {
     const userData = useUserData();
 
     useEffect(() => {
-        userData.save(data)
+        userData.saveUserData(data)
     }, [userData, data])
 
     return null
