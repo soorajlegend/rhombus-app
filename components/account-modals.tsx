@@ -12,12 +12,14 @@ import ReactToPrint from 'react-to-print';
 import Image from 'next/image';
 import QrCode from '@/public/qrcode.png';
 import { toast } from 'react-hot-toast';
+import useLoader from '@/hooks/use-loader';
 
 export const AddCardModal = () => {
 	const [createPin, setCreatePin] = useState('');
 	const [confirmPin, setConfirmPin] = useState('');
 	const [alert, setAlert] = useState('hidden');
 	const cardModal = useCardModal();
+	const loader = useLoader();
 	const user = useUserData();
 
 	const toggleAlert = () => {
@@ -40,6 +42,7 @@ export const AddCardModal = () => {
 		}
 		const mobile = user.data?.phoneNumber || '';
 		console.log(createPin, mobile);
+		loader.onOpen();
 		axios
 			.post(
 				`https://rumbu-admin.vercel.app/api/user/${encodeURIComponent(
@@ -49,9 +52,11 @@ export const AddCardModal = () => {
 			)
 			.then((res) => {
 				console.log(res.data);
+				loader.onClose();
 				toast.success('Card created successfully');
 			})
 			.catch((error) => {
+				loader.onClose();
 				console.log(error);
 				toast.error('Something went wrong!!');
 			});
@@ -108,6 +113,7 @@ export const ChangePin = () => {
 	const [alert, setAlert] = useState('hidden');
 	const changePinModal = useChangePinModal();
 	const user = useUserData();
+	const loader = useLoader();
 
 	const toggleAlert = () => {
 		setAlert('block');
@@ -126,6 +132,7 @@ export const ChangePin = () => {
 		}
 		const mobile = user.data?.phoneNumber || '';
 		console.log(oldPassword, newPassword, mobile);
+		loader.onOpen();
 		axios
 			.post(
 				`https://rumbu-admin.vercel.app/api/user/${encodeURIComponent(
@@ -135,9 +142,11 @@ export const ChangePin = () => {
 			)
 			.then((res) => {
 				console.log(res.data);
+				loader.onClose();
 				toast.success('Card updated successfully');
 			})
 			.catch((error) => {
+				loader.onClose();
 				console.log(error);
 				toast.error('Something went wrong!!');
 			});
