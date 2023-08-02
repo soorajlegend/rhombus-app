@@ -36,7 +36,7 @@ export const AddCardModal = () => {
 		const mobile = user.data?.phoneNumber;
 		console.log(card, mobile);
 		axios
-			.post(`https://rumbu-admin.vercel.app/api/user/${mobile}/card/edit`, card)
+			.post(`https://rumbu-admin.vercel.app/api/user/${encodeURIComponent(mobile)}/card`, { pin: card})
 			.then((res) => {
 				console.log(res.data);
 			})
@@ -158,14 +158,14 @@ export const PrintCardModal = () => {
 
 	return (
 		<Modal isOpen={cardModal.isOpen} onClose={cardModal.onClose}>
-			<div className="w-full">
+			<div className="w-full flex flex-col space-y-10">
 				<div
 					className="py-2 text-center rounded-md shadow-md w-fit px-3 mx-auto"
 					ref={printRef}
 				>
-					<h2 className="font-bold text-xl my-2">Rhumbo card</h2>
-					<div className="rounded w-full py-1 font-semibold px-2 bg-green-400 text-white">
-						Rhumbo : 123 ***** 1223
+					<h2 className="font-bold text-xl my-2">Rhumbus card</h2>
+					<div className="rounded w-full py-1 font-semibold px-2 bg-green-700 text-white">
+						Rhumbus : 123 ***** 1223
 					</div>
 					{/* QR Code */}
 					<div className="my-2 w-52 h-52 mx-auto">
@@ -180,8 +180,8 @@ export const PrintCardModal = () => {
 				<div className="text-center mt-2">
 					<ReactToPrint
 						trigger={() => (
-							<button className="mx-auto mb-3 sm:mb-0 md:mb-0 lg:mb-0 flex items-center justify-center bg-emerald-500 hover:bg-emerald-600 text-white transition-all font-serif text-sm font-semibold h-10 py-2 px-5 rounded-md">
-								Print Card{' '}
+							<button className="mx-auto mb-3 sm:mb-0 md:mb-0 lg:mb-0 flex items-center justify-center bg-emerald-700 hover:bg-emerald-800 text-white transition-all text-sm font-semibold h-10 py-2 px-5 rounded-md">
+								Print {' '}
 								<span className="ml-2">
 									<svg
 										stroke="currentColor"
