@@ -11,9 +11,11 @@ import axios from 'axios';
 import ReactToPrint from 'react-to-print';
 import Image from 'next/image';
 import QrCode from '@/public/qrcode.png';
+import { toast } from 'react-hot-toast';
 
 export const AddCardModal = () => {
-	const [card, setCard] = useState('');
+	const [createPin, setCreatePin] = useState('');
+	const [confirmPin, setConfirmPin] = useState('');
 	const [alert, setAlert] = useState('hidden');
 	const cardModal = useCardModal();
 	const user = useUserData();
@@ -30,17 +32,29 @@ export const AddCardModal = () => {
 	) => {
 		event.stopPropagation();
 		event.preventDefault();
-		if (card === '') {
+		if (createPin === '' || confirmPin === '') {
 			return toggleAlert();
 		}
+		if (createPin === confirmPin) {
+			return toast.error('pin and confirm pin must match!!');
+		}
 		const mobile = user.data?.phoneNumber || '';
-		console.log(card, mobile);
+		console.log(createPin, mobile);
 		axios
-			.post(`https://rumbu-admin.vercel.app/api/user/${encodeURIComponent(mobile)}/card`, { pin: card})
+			.post(
+				`https://rumbu-admin.vercel.app/api/user/${encodeURIComponent(
+					mobile
+				)}/card`,
+				{ pin: createPin }
+			)
 			.then((res) => {
 				console.log(res.data);
+				toast.success('Card created successfully');
 			})
-			.catch((error) => console.log(error));
+			.catch((error) => {
+				console.log(error);
+				toast.error('Something went wrong!!');
+			});
 	};
 	return (
 		<Modal isOpen={cardModal.isOpen} onClose={cardModal.onClose}>
@@ -55,13 +69,20 @@ export const AddCardModal = () => {
 					{' '}
 					<label htmlFor="card">Card pin</label>
 					<input
-						onChange={(e) => setCard(e.target.value)}
+						onChange={(e) => setCreatePin(e.target.value)}
 						className="px-3 my-2 py-2 text-lg w-full font-normal text-gray-500 bg-clip-padding border-gray-200  border rounded p-3 shadow  transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-emerald-800 focus:outline-none"
 						type="text"
 						id="card"
-						value={card}
-						max={6}
-						min={4}
+						value={createPin}
+						placeholder="Enter card pin (4-5 digits)"
+					/>
+					<label htmlFor="confirmPin">Confirm pin</label>
+					<input
+						onChange={(e) => setConfirmPin(e.target.value)}
+						className="px-3 my-2 py-2 text-lg w-full font-normal text-gray-500 bg-clip-padding border-gray-200  border rounded p-3 shadow  transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-emerald-800 focus:outline-none"
+						type="text"
+						id="confirmPin"
+						value={confirmPin}
 						placeholder="Enter card number (4-5 digits)"
 					/>
 					<p
@@ -103,7 +124,23 @@ export const ChangePin = () => {
 		if (oldPassword === '' || newPassword === '') {
 			return toggleAlert();
 		}
-		console.log(oldPassword, newPassword, user.data?.phoneNumber);
+		const mobile = user.data?.phoneNumber || '';
+		console.log(oldPassword, newPassword, mobile);
+		axios
+			.post(
+				`https://rumbu-admin.vercel.app/api/user/${encodeURIComponent(
+					mobile
+				)}/card/edit`,
+				{ oldPin: oldPassword, newPin: newPassword }
+			)
+			.then((res) => {
+				console.log(res.data);
+				toast.success('Card updated successfully');
+			})
+			.catch((error) => {
+				console.log(error);
+				toast.error('Something went wrong!!');
+			});
 	};
 	return (
 		<Modal isOpen={changePinModal.isOpen} onClose={changePinModal.onClose}>
@@ -181,7 +218,7 @@ export const PrintCardModal = () => {
 					<ReactToPrint
 						trigger={() => (
 							<button className="mx-auto mb-3 sm:mb-0 md:mb-0 lg:mb-0 flex items-center justify-center bg-emerald-700 hover:bg-emerald-800 text-white transition-all text-sm font-semibold h-10 py-2 px-5 rounded-md">
-								Print {' '}
+								Print{' '}
 								<span className="ml-2">
 									<svg
 										stroke="currentColor"
