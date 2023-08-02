@@ -35,8 +35,8 @@ export const AddCardModal = () => {
 		if (createPin === '' || confirmPin === '') {
 			return toggleAlert();
 		}
-		if (createPin === confirmPin) {
-			return toast.error('pin and confirm pin must match!!');
+		if (createPin !== confirmPin) {
+			return toast.error('Card pin and confirm pin must match!!');
 		}
 		const mobile = user.data?.phoneNumber || '';
 		console.log(createPin, mobile);
