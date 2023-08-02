@@ -5,11 +5,13 @@ import Modal from '@/components/ui/modal';
 import useCardModal from '@/hooks/use-addcard-modal';
 import useChangePinModal from '@/hooks/use-change-pin-modal';
 import { useState, FormEventHandler } from 'react';
+import useUserData from '@/hooks/use-user-data';
 
 export const AddCardModal = () => {
 	const [cardName, setCardName] = useState('');
 	const [alert, setAlert] = useState('hidden');
 	const cardModal = useCardModal();
+	const user = useUserData();
 
 	const toggleAlert = () => {
 		setAlert('block');
@@ -26,7 +28,7 @@ export const AddCardModal = () => {
 		if (cardName === '') {
 			return toggleAlert();
 		}
-		console.log(cardName);
+		console.log(cardName, user.data?.phoneNumber);
 	};
 	return (
 		<Modal isOpen={cardModal.isOpen} onClose={cardModal.onClose}>
@@ -39,7 +41,7 @@ export const AddCardModal = () => {
 					onSubmit={handleChangePasswordSubmit}
 				>
 					{' '}
-					<label htmlFor="cardName">Card Name</label>
+					<label htmlFor="cardName"></label>
 					<input
 						onChange={(e) => setCardName(e.target.value)}
 						className="px-3 my-2 py-2 text-lg w-full font-normal text-gray-500 bg-clip-padding border-gray-200  border rounded p-3 shadow  transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-emerald-800 focus:outline-none"
@@ -70,6 +72,7 @@ export const ChangePin = () => {
 	const [newPassword, setnewPassword] = useState('');
 	const [alert, setAlert] = useState('hidden');
 	const changePinModal = useChangePinModal();
+	const user = useUserData();
 
 	const toggleAlert = () => {
 		setAlert('block');
@@ -86,7 +89,7 @@ export const ChangePin = () => {
 		if (oldPassword === '' || newPassword === '') {
 			return toggleAlert();
 		}
-		console.log(oldPassword, newPassword);
+		console.log(oldPassword, newPassword, user.data?.phoneNumber);
 	};
 	return (
 		<Modal isOpen={changePinModal.isOpen} onClose={changePinModal.onClose}>
