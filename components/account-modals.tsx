@@ -16,8 +16,7 @@ export const AddCardModal = () => {
 	const [card, setCard] = useState('');
 	const [alert, setAlert] = useState('hidden');
 	const cardModal = useCardModal();
-	const userData = useUserData();
-	const mobile = userData.data?.phoneNumber;
+	const user = useUserData();
 
 	const toggleAlert = () => {
 		setAlert('block');
@@ -34,6 +33,7 @@ export const AddCardModal = () => {
 		if (card === '') {
 			return toggleAlert();
 		}
+		const mobile = user.data?.phoneNumber;
 		console.log(card, mobile);
 		axios
 			.post(`https://rumbu-admin.vercel.app/api/user/${mobile}/card/edit`, card)
@@ -86,8 +86,7 @@ export const ChangePin = () => {
 	const [newPassword, setnewPassword] = useState('');
 	const [alert, setAlert] = useState('hidden');
 	const changePinModal = useChangePinModal();
-	const userData = useUserData();
-	const mobile = userData.data?.phoneNumber;
+	const user = useUserData();
 
 	const toggleAlert = () => {
 		setAlert('block');
@@ -104,7 +103,7 @@ export const ChangePin = () => {
 		if (oldPassword === '' || newPassword === '') {
 			return toggleAlert();
 		}
-		console.log(oldPassword, mobile, userData, newPassword);
+		console.log(oldPassword, newPassword, user.data?.phoneNumber);
 	};
 	return (
 		<Modal isOpen={changePinModal.isOpen} onClose={changePinModal.onClose}>

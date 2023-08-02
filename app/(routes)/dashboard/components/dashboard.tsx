@@ -28,14 +28,14 @@ const Dashboard: React.FC<DashboardProps> = ({ user, graphData, countries }) => 
     }, [user])
 
     useEffect(() => {
-        if(!user.country || !user.country.length){
+        if (!user.country || !user.country.length) {
             userLocationModal.onOpen()
         }
     }, [user, userLocationModal.isOpen])
 
     const dashboardCards = [
         {
-            title: '8,089 kg',
+            title: `${user.storage.reduce((total, item) => total += Number(item.weight), 0)} kg`,
             description: 'My products',
             href: '/',
             color: 'bg-green-600',
@@ -91,9 +91,16 @@ const Dashboard: React.FC<DashboardProps> = ({ user, graphData, countries }) => 
         },
     ];
 
+    const highestItem = user.storage.reduce((prevProduct, currentProduct) => {
+        if (currentProduct.weight > prevProduct.weight) {
+            return currentProduct;
+        }
+        return prevProduct;
+    }, user.storage[0])
+
     const availableStocks = [
         {
-            title: ' 8,282 kg',
+            title: `${highestItem.weight} kg`,
             description: 'Total product capacity',
             href: '',
             color: 'bg-green-800',
@@ -111,7 +118,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, graphData, countries }) => 
             ),
         },
         {
-            title: '8,282kg',
+            title: `${user.storage.filter((item) => !item.forSale).reduce((total, item) => total += Number(item.weight), 0)} kg`,
             description: 'Total in Main Store',
             href: '',
             color: 'bg-indigo-600',
@@ -129,7 +136,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, graphData, countries }) => 
             ),
         },
         {
-            title: ' 200,521kg',
+            title: `${user.storage.filter((item) => item.forSale).reduce((total, item) => total += Number(item.weight), 0)} kg`,
             description: 'Total Stock in Market',
             href: '',
             color: 'bg-orange-600',
