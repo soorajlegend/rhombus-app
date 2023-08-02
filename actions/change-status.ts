@@ -1,5 +1,3 @@
-"use server"
-
 import axios from "axios";
 
 const URL = process.env.NEXT_PRIVATE_API_URL;
