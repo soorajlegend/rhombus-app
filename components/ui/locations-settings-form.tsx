@@ -4,7 +4,7 @@ import * as z from 'zod'
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import Heading from "./heading";
 import { Separator } from "./separator";
@@ -25,7 +25,6 @@ interface SettingFormProps {
 }
 
 const formSchema = z.object({
-    name: z.string().min(3),
     country: z.string().min(1),
     city: z.string().min(1),
     address: z.string().min(3).max(150),
@@ -38,7 +37,6 @@ const LocationSettingsForm: React.FC<SettingFormProps> = ({ initialData, countri
     const form = useForm<LocationSettingsFormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            ...initialData,
             country: initialData.country || '',
             city: initialData.city || '',
             address: initialData.address || '',
@@ -46,7 +44,6 @@ const LocationSettingsForm: React.FC<SettingFormProps> = ({ initialData, countri
     })
 
     const [loading, setLoading] = useState(false);
-    const params = useParams();
     const router = useRouter();
 
 
@@ -57,16 +54,16 @@ const LocationSettingsForm: React.FC<SettingFormProps> = ({ initialData, countri
         try {
             setLoading(true);
 
-            await axios.patch(`/api/${params.storeId}`, {
+            await axios.post(`https://rumbu-admin.vercel.app/api/user/${encodeURIComponent(initialData.phoneNumber)}/location`, {
                 ...data,
                 country: countryData?.country,
                 currency: countryData?.currency,
                 code: countryData?.code,
-                symbol: countryData?.symbol
+                symbol: countryData?.symbol,
             });
 
-            router.refresh();
-            toast.success("store updated successfully!");
+            router.push('/dashboard');
+            toast.success("info updated successfully!");
 
         } catch (e) {
             toast.error('Something went wrong!')
@@ -77,37 +74,18 @@ const LocationSettingsForm: React.FC<SettingFormProps> = ({ initialData, countri
 
 
     return (
-        <>
-
-           
-                <Heading
-                    title="Locations Settings"
-                    description="Provide your location information"
-                />
+        <div className='flex flex-col space-y-3 w-full'>
+            <Heading
+                title="Locations Settings"
+                description="Provide your location information"
+            />
             <Separator />
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
                     className='space-y-8 w-full'
                 >
-                    <div className="grid grid-cols-3 gap-8">
-                        <FormField
-                            control={form.control}
-                            name='name'
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Name</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            disabled={loading}
-                                            placeholder='Store name'
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                    <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5">
                         <FormField
                             control={form.control}
                             name='country'
@@ -168,7 +146,7 @@ const LocationSettingsForm: React.FC<SettingFormProps> = ({ initialData, countri
                             control={form.control}
                             name='address'
                             render={({ field }) => (
-                                <FormItem>
+                                <FormItem className='col-span-2'>
                                     <FormLabel>Address</FormLabel>
                                     <FormControl>
                                         <Textarea
@@ -191,7 +169,7 @@ const LocationSettingsForm: React.FC<SettingFormProps> = ({ initialData, countri
                     </Button>
                 </form>
             </Form>
-        </>
+        </div>
     )
 }
 

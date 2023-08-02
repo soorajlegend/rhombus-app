@@ -25,12 +25,13 @@ const Dashboard: React.FC<DashboardProps> = ({ user, graphData, countries }) => 
 
     useEffect(() => {
         userData.saveUserData(user)
+    }, [user])
 
+    useEffect(() => {
         if(!user.country || !user.country.length){
             userLocationModal.onOpen()
         }
-
-    }, [user])
+    }, [user, userLocationModal.isOpen])
 
     const dashboardCards = [
         {
