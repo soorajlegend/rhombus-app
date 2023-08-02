@@ -5,22 +5,31 @@ import React from 'react';
 import { GraphData } from '@/actions/get-graph-data';
 import Card from '@/components/ui/card';
 import BarChart from './BarChart';
-import { User } from '@/types';
+import { Currency, User } from '@/types';
 import useUserData from '@/hooks/use-user-data';
 import { useEffect } from 'react';
 import { formatNumber } from '@/app/lib/utils';
+import UserLocationModal from '@/components/user-location-modal';
+import useUserLocationModal from '@/hooks/use-user-location-modal';
 
 interface DashboardProps {
     user: User
     graphData: GraphData[]
+    countries: Currency[]
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ user, graphData }) => {
+const Dashboard: React.FC<DashboardProps> = ({ user, graphData, countries }) => {
 
     const userData = useUserData();
+    const userLocationModal = useUserLocationModal();
 
     useEffect(() => {
         userData.saveUserData(user)
+
+        if(!user.country || !user.country.length){
+            userLocationModal.onOpen()
+        }
+
     }, [user])
 
     const dashboardCards = [
@@ -43,7 +52,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, graphData }) => {
             ),
         },
         {
-            title: `${user.code} ${formatNumber(Number(user?.balance))}`,
+            title: `${user.code || 'NGN'} ${formatNumber(Number(user?.balance))}`,
             description: 'My Wallet',
             href: '/wallet',
             color: 'bg-blue-700',
@@ -151,6 +160,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, graphData }) => {
 
     return (
         <Container>
+            <UserLocationModal user={user} countries={countries} />
             <main className="flex-1 h-full overflow-x-hidden overflow-y-auto">
                 <div className="container mx-auto px-6 py-8">
                     <h3 className="text-gray-700 text-xl md:text-3xl font-medium">

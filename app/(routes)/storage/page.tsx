@@ -17,11 +17,10 @@ const page = async () => {
 
     const data = await getStoreData(userId);
 
- 
     return (
         <div>
             <Container>
-                <div className="w-full h-full flex flex-col space-y-3">
+                <div className="w-full h-full flex flex-col space-y-3 pt-20">
                     <Header amount={data.storage.length} />
                     <Separator />
                     <ItemsList data={data.storage} />
