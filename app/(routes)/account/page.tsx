@@ -5,11 +5,19 @@ import FundAccountButton from './components/FundAccountButton';
 import AddCardButton from './components/AddCardButton';
 import ChangePinButton from './components/ChangePinButton';
 import PrintCardButton from './components/PrintCardButton';
+import { auth } from '@clerk/nextjs';
+import getUserData from '@/actions/get-user-data';
+import { formatNumber } from '@/app/lib/utils';
 
-const Account = () => {
+const Account = async () => {
+
+    const { userId } = auth();
+
+    const user = await getUserData(userId!);
+
 	const BalanceCards = [
 		{
-			title: 'N8,282',
+			title: `${user.code} ${formatNumber(user.balance || 0)}`,
 			description: 'Balance',
 			href: '',
 			color: 'bg-emerald-800',
@@ -47,7 +55,7 @@ const Account = () => {
 	];
 	return (
 		<Container>
-			<main className="flex-1 h-full overflow-x-hidden overflow-y-auto pt-4">
+			<main className="flex-1 h-full overflow-x-hidden overflow-y-auto pt-20 px-3 lg:px-0">
 				<div className="flex justify-between w-full">
 					<h3 className="text-gray-700 text-xl md:text-3xl font-medium">
 						Account
