@@ -12,7 +12,7 @@ const PrintCardButton = () => {
 	return (
 		<button
 			onClick={showAddCard}
-			className="mb-3 sm:mb-0 md:mb-0 lg:mb-0 flex items-center justify-center bg-emerald-500 hover:bg-emerald-600 text-white transition-all font-serif text-sm font-semibold  py-2 px-3 rounded-md"
+			className="mb-3 sm:mb-0 md:mb-0 lg:mb-0 flex items-center justify-center bg-emerald-700 hover:bg-emerald-800 text-white transition-all  text-sm font-semibold  py-2 px-5 rounded-full"
 		>
 			Print Card{' '}
 			<span className="ml-2">
