@@ -33,7 +33,7 @@ export const AddCardModal = () => {
 		if (card === '') {
 			return toggleAlert();
 		}
-		const mobile = user.data?.phoneNumber;
+		const mobile = user.data?.phoneNumber || '';
 		console.log(card, mobile);
 		axios
 			.post(`https://rumbu-admin.vercel.app/api/user/${encodeURIComponent(mobile)}/card`, { pin: card})
