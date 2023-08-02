@@ -4,13 +4,15 @@ import { auth } from "@clerk/nextjs";
 import Dashboard from "./components/dashboard";
 import { getGraphData } from "@/actions/get-graph-data";
 import { aggregateWeights } from "@/lib/utils";
+import axios from 'axios';
+import { Currency } from "@/types";
 
 
 const SaveUser = async () => {
-	const { userId } = auth();
+    const { userId } = auth();
 
-	const user = await getUserData(userId!);
-	const formattedStorageData = aggregateWeights(
+    const user = await getUserData(userId!);
+    const formattedStorageData = aggregateWeights(
         user.storage?.map((each) => ({
             name: each.item.product.name,
             weight: each.weight,
@@ -20,10 +22,34 @@ const SaveUser = async () => {
 
     const graphData = await getGraphData(formattedStorageData);
 
-    return <Dashboard 
-		user={user}
-		graphData={graphData}
-	/>
+    const fetchCountries = async () => {
+        if(user.country && user.country.length > 0) {
+            return [];
+        }
+        
+        try {
+            const response = await axios.get("http://admin.1stmedia.sa/sniper/currencies.php");
+            const countries: Currency[] = response.data;
+            return countries;
+        } catch (error) {
+            console.error("Error fetching countries:", error);
+            return [];
+        }
+    };
+
+
+    const countries = await fetchCountries();
+
+    return (
+        <>
+            <Dashboard
+                user={user}
+                graphData={graphData}
+                countries={countries}
+            />
+        </>
+    )
+
 }
 
 export default SaveUser
