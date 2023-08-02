@@ -72,3 +72,11 @@ export interface Image {
   id: string;
   url: string;
 }
+
+export interface Currency {
+  id: string;
+  country: string;
+  currency: string;
+  code: string;
+  symbol: string;
+}
