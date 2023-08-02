@@ -1,5 +1,3 @@
-"use server"
-
 import { currentUser } from '@clerk/nextjs';
 
 import SaveUserScreen from './components/save-user-screen';
