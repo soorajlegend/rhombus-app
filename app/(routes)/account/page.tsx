@@ -4,6 +4,7 @@ import Transactions from './components/Transactions';
 import FundAccountButton from './components/FundAccountButton';
 import AddCardButton from './components/AddCardButton';
 import ChangePinButton from './components/ChangePinButton';
+import PrintCardButton from './components/PrintCardButton';
 
 const Account = () => {
 	const BalanceCards = [
@@ -47,9 +48,12 @@ const Account = () => {
 	return (
 		<Container>
 			<main className="flex-1 h-full overflow-x-hidden overflow-y-auto pt-4">
-				<h3 className="text-gray-700 text-xl md:text-3xl font-medium">
-					Account
-				</h3>
+				<div className="flex justify-between w-full">
+					<h3 className="text-gray-700 text-xl md:text-3xl font-medium">
+						Account
+					</h3>
+					<PrintCardButton />
+				</div>
 				<div className="mt-4">
 					<div className="flex flex-wrap -mx-6">
 						{BalanceCards.map((card, index) => (

@@ -3,7 +3,11 @@
 import PreviewModal from '@/components/preview-modal';
 import SendProductModal from '@/components/send-product-modal';
 import WithdrawProductModal from '@/components/withdraw-product-modal';
-import { AddCardModal, ChangePin } from '@/components/account-modals';
+import {
+	AddCardModal,
+	ChangePin,
+	PrintCardModal,
+} from '@/components/account-modals';
 import { useEffect, useState } from 'react';
 
 const ModalProvider = () => {
@@ -23,6 +27,7 @@ const ModalProvider = () => {
 			<SendProductModal />
 			<WithdrawProductModal />
 			<AddCardModal />
+			<PrintCardModal />
 			<ChangePin />
 		</>
 	);

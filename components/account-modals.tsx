@@ -4,11 +4,16 @@ import React from 'react';
 import Modal from '@/components/ui/modal';
 import useCardModal from '@/hooks/use-addcard-modal';
 import useChangePinModal from '@/hooks/use-change-pin-modal';
-import { useState, FormEventHandler } from 'react';
+import usePrintCardModal from '@/hooks/use-printcard-modal';
+import { useState, FormEventHandler, useRef } from 'react';
 import useUserData from '@/hooks/use-user-data';
+import axios from 'axios';
+import ReactToPrint from 'react-to-print';
+import Image from 'next/image';
+import QrCode from '@/public/qrcode.png';
 
 export const AddCardModal = () => {
-	const [cardName, setCardName] = useState('');
+	const [card, setCard] = useState('');
 	const [alert, setAlert] = useState('hidden');
 	const cardModal = useCardModal();
 	const user = useUserData();
@@ -25,10 +30,17 @@ export const AddCardModal = () => {
 	) => {
 		event.stopPropagation();
 		event.preventDefault();
-		if (cardName === '') {
+		if (card === '') {
 			return toggleAlert();
 		}
-		console.log(cardName, user.data?.phoneNumber);
+		const mobile = user.data?.phoneNumber;
+		console.log(card, mobile);
+		axios
+			.post(`https://rumbu-admin.vercel.app/api/user/${mobile}/card/edit`, card)
+			.then((res) => {
+				console.log(res.data);
+			})
+			.catch((error) => console.log(error));
 	};
 	return (
 		<Modal isOpen={cardModal.isOpen} onClose={cardModal.onClose}>
@@ -41,14 +53,16 @@ export const AddCardModal = () => {
 					onSubmit={handleChangePasswordSubmit}
 				>
 					{' '}
-					<label htmlFor="cardName"></label>
+					<label htmlFor="card">Card pin</label>
 					<input
-						onChange={(e) => setCardName(e.target.value)}
+						onChange={(e) => setCard(e.target.value)}
 						className="px-3 my-2 py-2 text-lg w-full font-normal text-gray-500 bg-clip-padding border-gray-200  border rounded p-3 shadow  transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-emerald-800 focus:outline-none"
 						type="text"
-						id="cardName"
-						value={cardName}
-						placeholder="Enter card number (16-19 digits)"
+						id="card"
+						value={card}
+						max={6}
+						min={4}
+						placeholder="Enter card number (4-5 digits)"
 					/>
 					<p
 						className={`text-center text-lg bg-red-800 p-3 w-full text-white duration-500 ${alert}`}
@@ -131,6 +145,84 @@ export const ChangePin = () => {
 						Change Pin
 					</button>
 				</form>
+			</div>
+		</Modal>
+	);
+};
+
+export const PrintCardModal = () => {
+	const cardModal = usePrintCardModal();
+	const printRef = useRef(null);
+	const userData = useUserData();
+	const mobile = userData.data?.phoneNumber;
+
+	return (
+		<Modal isOpen={cardModal.isOpen} onClose={cardModal.onClose}>
+			<div className="w-full">
+				<div
+					className="py-2 text-center rounded-md shadow-md w-fit px-3 mx-auto"
+					ref={printRef}
+				>
+					<h2 className="font-bold text-xl my-2">Rhumbo card</h2>
+					<div className="rounded w-full py-1 font-semibold px-2 bg-green-400 text-white">
+						Rhumbo : 123 ***** 1223
+					</div>
+					{/* QR Code */}
+					<div className="my-2 w-52 h-52 mx-auto">
+						<Image src={QrCode} alt="QrCode" />
+					</div>
+					<div className="space-y-2">
+						<p>{mobile}</p>
+						<h3 className="font-semibold">Instructions</h3>
+						<p>Use card for transaction only</p>
+					</div>
+				</div>
+				<div className="text-center mt-2">
+					<ReactToPrint
+						trigger={() => (
+							<button className="mx-auto mb-3 sm:mb-0 md:mb-0 lg:mb-0 flex items-center justify-center bg-emerald-500 hover:bg-emerald-600 text-white transition-all font-serif text-sm font-semibold h-10 py-2 px-5 rounded-md">
+								Print Card{' '}
+								<span className="ml-2">
+									<svg
+										stroke="currentColor"
+										fill="currentColor"
+										strokeWidth="0"
+										viewBox="0 0 512 512"
+										height="1em"
+										width="1em"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											fill="none"
+											strokeLinejoin="round"
+											strokeWidth="32"
+											d="M384 368h24a40.12 40.12 0 0040-40V168a40.12 40.12 0 00-40-40H104a40.12 40.12 0 00-40 40v160a40.12 40.12 0 0040 40h24"
+										></path>
+										<rect
+											width="256"
+											height="208"
+											x="128"
+											y="240"
+											fill="none"
+											strokeLinejoin="round"
+											strokeWidth="32"
+											rx="24.32"
+											ry="24.32"
+										></rect>
+										<path
+											fill="none"
+											strokeLinejoin="round"
+											strokeWidth="32"
+											d="M384 128v-24a40.12 40.12 0 00-40-40H168a40.12 40.12 0 00-40 40v24"
+										></path>
+										<circle cx="392" cy="184" r="24"></circle>
+									</svg>
+								</span>
+							</button>
+						)}
+						content={() => printRef.current}
+					/>
+				</div>
 			</div>
 		</Modal>
 	);
