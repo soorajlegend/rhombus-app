@@ -34,13 +34,13 @@ const MainNav = () => {
     ]
 
     return (
-        <nav className='mx-6 flex items-center space-x-4 lg:space-x-6'>
+        <nav className='mx-6 flex flex-col lg:flex-row lg:items-center lg:space-x-6 '>
             {
                routes.map((route) => (
                     <Link
                         key={route.href}
                         href={route.href}
-                        className={cn("text-sm font-medium transition-colors hover:text-black",
+                        className={cn("text-base lg:text-sm p-2 lg:p-0 font-medium transition-colors hover:text-black",
                         route.active ? "text-black" : "text-natural-500"
                         )}
                     >

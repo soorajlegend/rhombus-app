@@ -20,13 +20,13 @@ const CategoryList: React.FC<CategoryListProps> = ({ data }) => {
     }));
 
     return (
-        <nav className='mx-0 flex items-center space-x-4 lg:space-x-6 py-2'>
+        <nav className='mx-0 flex items-center space-x-4 lg:space-x-6 py-2 px-8 lg:px-0 overflow-x-auto'>
             {
                routes.map((route) => (
                     <Link
                         key={route.href}
                         href={route.href}
-                        className={cn("text-xs font-bold text-muted-foreground transition-colors hover:text-black",
+                        className={cn("text-sm lg:text-xs font-bold text-muted-foreground transition-colors hover:text-black",
                         route.active ? "text-black" : "text-natural-500"
                         )}
                     >

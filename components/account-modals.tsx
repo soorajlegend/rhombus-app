@@ -41,7 +41,6 @@ export const AddCardModal = () => {
 			return toast.error('Card pin and confirm pin must match!!');
 		}
 		const mobile = user.data?.phoneNumber || '';
-		console.log(createPin, mobile);
 		loader.onOpen();
 		axios
 			.post(
@@ -52,13 +51,13 @@ export const AddCardModal = () => {
 			)
 			.then((res) => {
 				console.log(res.data);
-				loader.onClose();
 				toast.success('Card created successfully');
 			})
 			.catch((error) => {
-				loader.onClose();
 				console.log(error);
 				toast.error('Something went wrong!!');
+			}).finally(() => {
+				loader.onClose();
 			});
 	};
 	return (

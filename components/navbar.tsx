@@ -6,6 +6,7 @@ import getCategories from '@/actions/get-categories'
 import NavbarActions from './navbar-actions';
 import CategoryList from './category-list';
 import { Separator } from './ui/separator';
+import MobileNav from './mobile-nav';
 
 
 
@@ -25,8 +26,11 @@ const Navbar: React.FC = async () => {
                     >
                         <p className='font-bold text-xl text-emerald-800'>Rhombus</p>
                     </Link>
-                    <MainNav />
+                    <div className="hidden lg:flex">
+                        <MainNav />
+                    </div>
                     <NavbarActions />
+                    <MobileNav />
                 </div>
                 <Separator />
                 <CategoryList data={categories} />
