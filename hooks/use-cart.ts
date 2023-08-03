@@ -32,7 +32,7 @@ const useCart = create(
       removeAll: () => set({ items: [] }),
     }),
     {
-      name: "cart-storage",
+      name: "food-cart-storage",
       storage: createJSONStorage(() => localStorage),
     }
   )
