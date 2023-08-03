@@ -9,7 +9,7 @@ const changeStatus = async (
 ): Promise<boolean> => {
   try {
     
-    await axios.patch(`${URL}/${storeId}/storeItems/${storeItemId}/status`, { status });
+    await axios.post(`${URL}/${storeId}/storeItems/${storeItemId}/status`, { status });
     return true;
 
   } catch (error) {
