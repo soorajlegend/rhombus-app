@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = process.env.NEXT_PRIVATE_API_URL;
+const URL = process.env.NEXT_PUBLIC_DEFAULT_API_URL;
 
 const changeStatus = async (
   storeId: string,
