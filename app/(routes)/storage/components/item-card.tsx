@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import useLoader from "@/hooks/use-loader"
 import changeStatus from "@/actions/change-status"
+import useWithdrawModal from "@/hooks/use-withdraw-modal"
 
 interface ItemCardProps {
     data: StoreItem
@@ -22,7 +23,12 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
     const sendModal = useSendProduct();
     const router = useRouter();
     const loader = useLoader();
+    const withdrawModal = useWithdrawModal();
 
+    const showWithdrawModal: MouseEventHandler<HTMLButtonElement> = (event) => {
+        event.stopPropagation();
+        withdrawModal.onOpen(data)
+    }
 
     const showSendModal: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation();
@@ -79,8 +85,9 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
                 </div>
                 <Separator />
                 <div className="flex gap-x-3">
-                    <Button onClick={updateStatus}>{data.forSale ? "Remove from market" : "Put to market"}</Button>
-                    <Button onClick={showSendModal}>Send</Button>
+                    <Button className="text-sm px-4 lg:px-5" onClick={updateStatus}>{data.forSale ? "Remove from market" : "Put to market"}</Button>
+                    <Button className="text-sm px-4 lg:px-5" onClick={showSendModal}>Send</Button>
+                    <Button className="text-sm px-4 lg:px-5" onClick={showWithdrawModal}>Withdraw</Button>
                 </div>
             </div>
         </div>

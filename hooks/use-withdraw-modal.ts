@@ -1,14 +1,17 @@
+import { StoreItem } from "@/types";
 import { create } from "zustand"
 
 interface WithdrawModal {
 isOpen: boolean;
-onOpen: () => void
+data?: StoreItem
+onOpen: (data: StoreItem) => void
 onClose: () => void
 }
 
 const useWithdrawModal = create<WithdrawModal>((set) => ({
     isOpen: false,
-    onOpen: () => set({ isOpen: true }),
+    data: undefined,
+    onOpen: (data: StoreItem) => set({ data, isOpen: true }),
     onClose: () => set({isOpen: false})
 }))
 

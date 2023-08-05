@@ -59,7 +59,7 @@ const SendProductModal = () => {
             loader.onOpen();
 
             if (productData && Number(data.weight) > productData?.weight) {
-                toast.error(`Insufficient product, you only have ${productData.weight} Kg`)
+                toast.error(`Insufficient amount, you only have ${productData.weight} Kg`)
             loader.onClose()
             setLoading(false)
                 return
@@ -70,7 +70,7 @@ const SendProductModal = () => {
             });
 
             router.push('/storage');
-            toast.success("info updated successfully!");
+            toast.success("product sent successfully!");
 
         } catch (e) {
             toast.error('Something went wrong!')
