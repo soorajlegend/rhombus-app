@@ -37,6 +37,9 @@ export const AddCardModal = () => {
 		if (createPin === '' || confirmPin === '') {
 			return toggleAlert();
 		}
+		if (createPin.length < 6 || confirmPin.length < 6) {
+			return toast.error('Pin and confirm pin must be more than 6 digit!!');
+		}
 		if (createPin !== confirmPin) {
 			return toast.error('Card pin and confirm pin must match!!');
 		}
@@ -56,7 +59,8 @@ export const AddCardModal = () => {
 			.catch((error) => {
 				console.log(error);
 				toast.error('Something went wrong!!');
-			}).finally(() => {
+			})
+			.finally(() => {
 				loader.onClose();
 			});
 	};
@@ -128,6 +132,9 @@ export const ChangePin = () => {
 		event.preventDefault();
 		if (oldPassword === '' || newPassword === '') {
 			return toggleAlert();
+		}
+		if (oldPassword.length < 6 || newPassword.length < 6) {
+			return toast.error('Pin and confirm pin must be more than 6 digit!!');
 		}
 		const mobile = user.data?.phoneNumber || '';
 		console.log(oldPassword, newPassword, mobile);
