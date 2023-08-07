@@ -1,5 +1,6 @@
 import { format } from 'date-fns'
 import React from 'react'
+import WatsonChatIntegration from './watson-chat-integration'
 
 const Footer = () => {
   return (
@@ -9,6 +10,7 @@ const Footer = () => {
                 &copy; {format(new Date(), "yyyy")} Rhombus, Inc. All right reserved.
             </p>
         </div>
+        <WatsonChatIntegration />
     </footer>
   )
 }
