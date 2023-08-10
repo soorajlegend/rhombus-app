@@ -86,7 +86,7 @@ const ItemCard: React.FC<ItemCardProps> = ({ data }) => {
                 <Separator />
                 <div className="flex gap-x-3">
                     <Button className="text-sm px-4 lg:px-5" onClick={updateStatus}>{data.forSale ? "Remove from market" : "Put to market"}</Button>
-                    <Button className="text-sm px-4 lg:px-5" onClick={showSendModal}>Send</Button>
+                    <Button className="text-sm px-4 lg:px-5" onClick={showSendModal}>Share</Button>
                     <Button className="text-sm px-4 lg:px-5" onClick={showWithdrawModal}>Withdraw</Button>
                 </div>
             </div>
