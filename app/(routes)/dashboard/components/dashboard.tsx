@@ -28,14 +28,14 @@ const Dashboard: React.FC<DashboardProps> = ({ user, graphData, countries }) => 
     }, [user])
 
     useEffect(() => {
-        if (!user.country || !user.country.length) {
+        if (!user?.country || !user?.country.length) {
             userLocationModal.onOpen()
         }
     }, [user, userLocationModal.isOpen])
 
     const dashboardCards = [
         {
-            title: `${user.storage.reduce((total, item) => total += Number(item.weight), 0)} kg`,
+            title: `${user?.storage.reduce((total, item) => total += Number(item.weight), 0) || 0} kg`,
             description: 'My products',
             href: '/',
             color: 'bg-green-600',
@@ -53,7 +53,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, graphData, countries }) => 
             ),
         },
         {
-            title: `${user.code || 'NGN'} ${formatNumber(Number(user?.balance))}`,
+            title: `${user?.code || 'NGN'} ${formatNumber(Number(user?.balance || 0))}`,
             description: 'My Wallet',
             href: '/wallet',
             color: 'bg-blue-700',
@@ -91,16 +91,16 @@ const Dashboard: React.FC<DashboardProps> = ({ user, graphData, countries }) => 
         },
     ];
 
-    const highestItem = user.storage.reduce((prevProduct, currentProduct) => {
+    const highestItem = user?.storage.reduce((prevProduct, currentProduct) => {
         if (currentProduct.weight > prevProduct.weight) {
             return currentProduct;
         }
         return prevProduct;
-    }, user.storage[0])
+    }, user?.storage[0])
 
     const availableStocks = [
         {
-            title: `${highestItem.weight} kg`,
+            title: `${highestItem?.weight || 0} kg`,
             description: 'Total product capacity',
             href: '',
             color: 'bg-green-800',
@@ -118,7 +118,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, graphData, countries }) => 
             ),
         },
         {
-            title: `${user.storage.filter((item) => !item.forSale).reduce((total, item) => total += Number(item.weight), 0)} kg`,
+            title: `${user?.storage.filter((item) => !item.forSale).reduce((total, item) => total += Number(item.weight), 0)} kg`,
             description: 'Total in Main Store',
             href: '',
             color: 'bg-indigo-600',
@@ -136,7 +136,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, graphData, countries }) => 
             ),
         },
         {
-            title: `${user.storage.filter((item) => item.forSale).reduce((total, item) => total += Number(item.weight), 0)} kg`,
+            title: `${user?.storage.filter((item) => item.forSale).reduce((total, item) => total += Number(item.weight), 0)} kg`,
             description: 'Total Stock in Market',
             href: '',
             color: 'bg-orange-600',

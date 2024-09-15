@@ -12,6 +12,8 @@ interface Item {
 export const aggregateWeights = (items: Item[]): Item[] => {
   const aggregatedItems: { [key: string]: number } = {};
 
+  if(!items || !items.length) return []
+
   for (const item of items) {
     const { name, weight } = item;
     if (aggregatedItems[name]) {
