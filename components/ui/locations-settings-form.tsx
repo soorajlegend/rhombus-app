@@ -4,7 +4,6 @@ import * as z from 'zod'
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
 
 import Heading from "./heading";
 import { Separator } from "./separator";
@@ -17,6 +16,7 @@ import Button from './button';
 import { Currency, User } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
+import { useUser } from '@clerk/nextjs';
 
 
 interface SettingFormProps {
@@ -28,33 +28,41 @@ const formSchema = z.object({
     country: z.string().min(1),
     city: z.string().min(1),
     address: z.string().min(3).max(150),
+    mobile: z.string().min(11).max(15)
 })
 
 type LocationSettingsFormValues = z.infer<typeof formSchema>
 
 const LocationSettingsForm: React.FC<SettingFormProps> = ({ initialData, countries }) => {
 
+    const { user } = useUser()
+
     const form = useForm<LocationSettingsFormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            country: initialData.country || '',
-            city: initialData.city || '',
-            address: initialData.address || '',
+            country: initialData?.country || '',
+            city: initialData?.city || '',
+            address: initialData?.address || '',
+            mobile: user?.phoneNumbers[0].phoneNumber || ''
         }
     })
 
     const [loading, setLoading] = useState(false);
-    const router = useRouter();
 
 
     const onSubmit = async (data: LocationSettingsFormValues) => {
+
+        if (!user) {
+            return
+        }
 
         const countryData = countries.find(country => country.id === data?.country)
 
         try {
             setLoading(true);
 
-            await axios.post(`https://rumbu-admin.vercel.app/api/user/${encodeURIComponent(initialData.phoneNumber)}/location`, {
+
+            await axios.post(`https://rumbu-admin.vercel.app/api/user/e/${encodeURIComponent(user.emailAddresses[0].emailAddress)}/location`, {
                 ...data,
                 country: countryData?.country,
                 currency: countryData?.currency,
@@ -62,10 +70,13 @@ const LocationSettingsForm: React.FC<SettingFormProps> = ({ initialData, countri
                 symbol: countryData?.symbol,
             });
 
-            router.push('/dashboard');
+            // reload the page using window
+            window.location.reload()
+            
             toast.success("info updated successfully!");
 
         } catch (e) {
+            console.log(e, initialData)
             toast.error('Something went wrong!')
         } finally {
             setLoading(false)
@@ -135,6 +146,23 @@ const LocationSettingsForm: React.FC<SettingFormProps> = ({ initialData, countri
                                         <Input
                                             disabled={loading}
                                             placeholder='City located'
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name='mobile'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Mobile</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            disabled={loading}
+                                            placeholder='+234'
                                             {...field}
                                         />
                                     </FormControl>

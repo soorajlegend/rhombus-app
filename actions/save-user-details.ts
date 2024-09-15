@@ -6,14 +6,12 @@ const saveUser = async (
   id: string,
   firstName: string,
   lastName: string,
-  phoneNumber: string,
   emailAddress: string
 ): Promise<User | null> => {
   const userData = {
     id,
     firstName,
     lastName,
-    phoneNumber,
     emailAddress,
   };
 

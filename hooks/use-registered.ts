@@ -14,7 +14,7 @@ const useRegistered = create(
         onSet: () => set({ isRegistered: true }),
       }),
       {
-        name: "user-registration-storage",
+        name: "rumbu-user-registration-storage",
         storage: createJSONStorage(() => localStorage),
       }
     )

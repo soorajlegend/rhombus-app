@@ -11,19 +11,19 @@ interface SettingFormProps {
     countries: Currency[];
 }
 
-const UserLocationModal: React.FC<SettingFormProps> = ({user, countries}) => {
+const UserLocationModal: React.FC<SettingFormProps> = ({ user, countries }) => {
 
     const userLocationSetting = useUserLocationModal();
-  
+
     return (
         <Modal
             isOpen={userLocationSetting.isOpen}
             onClose={userLocationSetting.onClose}
         >
             <LocationSettingsForm
-            countries={countries}
-            initialData={user}
-            /> 
+                countries={countries}
+                initialData={user}
+            />
         </Modal>
     )
 }

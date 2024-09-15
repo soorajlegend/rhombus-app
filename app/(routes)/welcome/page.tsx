@@ -7,7 +7,7 @@ export default async function Welome() {
 
   const user = await currentUser();
 
-  const meetRequirement = user?.firstName && user?.phoneNumbers[0].phoneNumber && user?.emailAddresses[0].emailAddress;
+  const meetRequirement = user?.firstName  && user?.emailAddresses[0].emailAddress;
 
   return (
     <div className='w-full h-full flex justify-center items-center'>
@@ -19,7 +19,6 @@ export default async function Welome() {
             id: user.id,
             firstName: user?.firstName,
             lastName:  user?.lastName || '',
-            phoneNumber: user?.phoneNumbers[0].phoneNumber,
             emailAddress: user?.emailAddresses[0].emailAddress
           }} />)
             :

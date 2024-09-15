@@ -12,7 +12,6 @@ interface SaveUserScreenProps {
         id: string;
         firstName: string;
         lastName: string;
-        phoneNumber: string;
         emailAddress: string;
     };
 }
@@ -31,7 +30,6 @@ const SaveUserScreen: React.FC<SaveUserScreenProps> = ({ user }) => {
                 user?.id,
                 user?.firstName,
                 user?.lastName,
-                user?.phoneNumber,
                 user?.emailAddress
             )
 
@@ -41,7 +39,7 @@ const SaveUserScreen: React.FC<SaveUserScreenProps> = ({ user }) => {
             }
         };
         saveData();
-    }, [router, user?.emailAddress, user?.firstName, user?.id, user?.lastName, user?.phoneNumber]);
+    }, [router, user?.emailAddress, user?.firstName, user?.id, user?.lastName]);
 
     return (
         <div className="flex flex-col justify-start items-center space-y-5 min-h-[50vh]">
